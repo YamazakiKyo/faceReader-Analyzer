@@ -40,13 +40,15 @@ def noise_handle ():
     print ("The video duration is %.2f seconds in total\n\n" % (length))
 
 def phone_talk ():
-    for noise in ['FIND_FAILED', 'FIT_FAILED']:
-        index['Happy'] = index['Happy'].replace(str(noise), int(0))
-        index['Angry'] = index['Angry'].replace(str(noise), int(0))
-        
-    index['Happy'] = index['Happy'].astype(float)
-    index['Angry'] = index['Angry'].astype(float)
-    
+    for label in ['Happy', 'Angry', 'Sad']:
+        for noise in ['FIND_FAILED', 'FIT_FAILED']:
+            index[str(label)] = index[str(label)].replace(str(noise), int(0))
+        index[str(label)] = index[str(label)].astype(float)    
+        mean = index[str(label)].mean()
+        index[str(label)] = index[str(label)].replace(int(0), mean)
+        index[str(label)] = index[str(label)].astype(float)
+           
+
     happy_std = index['Happy'].std()
     happy_2sigma = happy_std * 2
     happy_mean = index['Happy'].mean()
@@ -57,11 +59,19 @@ def phone_talk ():
     angry_mean = index['Angry'].mean()
     angry_law = angry_mean + angry_2sigma
     
+    sad_std = index['Sad'].std()
+    sad_1sigma = sad_std
+    sad_mean = index['Sad'].mean()
+    sad_law = sad_mean + sad_1sigma
+    
     count = 0
     for i in range(len(index)):
-        if ((in_cell(i, 'Mouth') == 'Open') or 
-            (in_cell(i, "Happy") > happy_law) or 
-            (in_cell(i, "Angry") > angry_law)): 
+        if (((in_cell(i, 'Mouth') == 'Open') and 
+            ((in_cell(i, "Happy") > happy_law) or 
+            (in_cell(i, "Angry") > angry_law))) or
+            ((in_cell(i, 'Sad') > sad_law) and 
+             (in_cell(i, 'Left Eye') == 'Closed') and 
+             (in_cell(i, 'Right Eye') == 'Closed'))): 
             count += 1
     talk_time = count / 24
     print("The time that the driver used the cellphone is about %.4f second(s)\n\n" % (talk_time))
@@ -74,7 +84,7 @@ while restart != "x":
     noise_handle()
     phone_talk()
     restart = input("press any key to start again, or 'x' to exit: \n")
-                
+           
         
             
     
