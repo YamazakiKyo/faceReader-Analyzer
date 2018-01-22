@@ -1,4 +1,4 @@
-# .py-to-.exe
+# faceReader Analyzer
 Serve as a part of highway safety project, "Investigation Problem of Distracted Drivers on Louisiana Roadways":  
 (The faceReader.py is a python script, which works as an analyzer for the exported data from faceReader (the bio-information collector, http://www.noldus.com/facereader/facereader-online).)  
 
