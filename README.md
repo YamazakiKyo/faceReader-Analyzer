@@ -18,7 +18,8 @@ How is works:
         1. n sigma for "sad", "happy", and "angry"  
         2. high emotion and low emotion weight for the different talking scenarios                     
         3. manipulation adjustment parameter                                  
--- Report the distracted driving time by "manipulating the cell phone" and "talking through the cell phone" by divided the video processing cutting time (e.g. 24 pieces of pictures per second)                                 
+-- Report the distracted driving time by "manipulating the cell phone" and "talking through the cell phone" by divided the video processing cutting time (e.g. 24 pieces of pictures per second)      
+-- Plot
         
 use 'cx_Freeze' to convert the python script to the executable program:   
 -- Download and install "cx_Freeze" directly issue the commend: "python -m pip install cx_Freeze --upgrade", or download from PyPI "https://pypi.python.org/pypi?:action=display&name=cx_Freeze&version=5.0.2", choose the appropriable version  
